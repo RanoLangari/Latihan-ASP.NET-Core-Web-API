@@ -33,29 +33,19 @@ namespace CRUD_ASP.Controller
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBarang(int id, TblBarang barang)
+        public async Task<IActionResult> UpdateBarang(int id, TblBarangEdit barang)
         {
-            
-            _myDbContext.Entry(barang).State = EntityState.Modified;
-            try
+            if (!BarangExists(id))
             {
-                await _myDbContext.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BarangExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            TblBarang EditBarang =  _myDbContext.TblBarangs.Where(x => x.IdBarang == id).FirstOrDefault();
+            EditBarang.NamaBarang = barang.NamaBarang;
+            EditBarang.KategoriBarang = barang.KategoriBarang;
+            EditBarang.KeteranganBarang = barang.KeteranganBarang;
+            await _myDbContext.SaveChangesAsync();
             
-            return Ok(new { Success = true, Message = "Berhasil Memngubah Data Barang Data Barang" });
-            
-
+            return Ok(new { Success = true, Message = "Berhasil Mengubah Data Barang" });
         }
 
         [HttpDelete("{id}")]

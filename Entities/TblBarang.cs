@@ -13,3 +13,12 @@ public partial class TblBarang
 
     public string KeteranganBarang { get; set; } = null!;
 }
+
+public partial class TblBarangEdit
+{
+    public string NamaBarang { get; set; } = null!;
+
+    public string KategoriBarang { get; set; } = null!;
+
+    public string KeteranganBarang { get; set; } = null!;
+}
