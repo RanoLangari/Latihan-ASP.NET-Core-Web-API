@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\CRUD-ASP.props" />
+</Project>
